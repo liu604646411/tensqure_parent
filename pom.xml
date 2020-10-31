@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>tensqure_base</module>
-        <module>tensqure_common</module>
-        <module>tensqure_recruit</module>
+        <module>tensquare_base</module>
+        <module>tensquare_common</module>
+        <module>tensquare_recruit</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>com.tensqure</groupId>
-            <artifactId>tensqure_common</artifactId>
+            <artifactId>tensquare_common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
