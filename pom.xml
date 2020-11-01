@@ -9,6 +9,7 @@
         <module>tensquare_friend</module>
         <module>tensquare_article</module>
         <module>tensquare_user</module>
+        <module>tensquare_gathering</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
