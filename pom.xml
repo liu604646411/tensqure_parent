@@ -10,6 +10,7 @@
         <module>tensquare_article</module>
         <module>tensquare_user</module>
         <module>tensquare_gathering</module>
+        <module>tensquare_qa</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
