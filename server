@@ -2,3 +2,4 @@ tensquare_base : 9001
 tensquare_recruit : 9002
 tensquare-article : 9003
 tensquare_friend : 9004
+tensquare_user : 9005
