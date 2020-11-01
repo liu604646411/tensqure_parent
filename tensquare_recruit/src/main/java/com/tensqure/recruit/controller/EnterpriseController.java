@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,8 +24,14 @@ public class EnterpriseController {
 
 	@Autowired
 	private EnterpriseService enterpriseService;
-	
-	
+
+	@RequestMapping(value="/search/hotlist",method=RequestMethod.GET)
+	public Result hotlist(){
+		List<Enterprise> list = enterpriseService.hotList("1");
+		return new Result(true,StatusCode.OK,"查询成功",list);
+	}
+
+
 	/**
 	 * 查询全部数据
 	 * @return
@@ -33,7 +40,7 @@ public class EnterpriseController {
 	public Result findAll(){
 		return new Result(true,StatusCode.OK,"查询成功",enterpriseService.findAll());
 	}
-	
+
 	/**
 	 * 根据ID查询
 	 * @param id ID
@@ -59,15 +66,15 @@ public class EnterpriseController {
 	}
 
 	/**
-     * 根据条件查询
-     * @param searchMap
-     * @return
-     */
-    @RequestMapping(value="/search",method = RequestMethod.POST)
-    public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",enterpriseService.findSearch(searchMap));
-    }
-	
+	 * 根据条件查询
+	 * @param searchMap
+	 * @return
+	 */
+	@RequestMapping(value="/search",method = RequestMethod.POST)
+	public Result findSearch( @RequestBody Map searchMap){
+		return new Result(true,StatusCode.OK,"查询成功",enterpriseService.findSearch(searchMap));
+	}
+
 	/**
 	 * 增加
 	 * @param enterprise
@@ -77,7 +84,7 @@ public class EnterpriseController {
 		enterpriseService.add(enterprise);
 		return new Result(true,StatusCode.OK,"增加成功");
 	}
-	
+
 	/**
 	 * 修改
 	 * @param enterprise
@@ -88,13 +95,13 @@ public class EnterpriseController {
 		enterpriseService.update(enterprise);
 		return new Result(true,StatusCode.OK,"修改成功");
 	}
-	
+
 	/**
 	 * 删除
 	 * @param id
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-	public Result delete(@PathVariable String id){
+	public Result delete(@PathVariable String id ){
 		enterpriseService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}

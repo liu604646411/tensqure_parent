@@ -25,12 +25,15 @@ import java.util.Map;
  */
 @Service
 public class EnterpriseService {
-
 	@Autowired
 	private EnterpriseDao enterpriseDao;
-	
+
 	@Autowired
 	private IdWorker idWorker;
+
+	public List<Enterprise> hotList(String ishot){
+		return enterpriseDao.findByIshot(ishot);
+	}
 
 	/**
 	 * 查询全部列表
@@ -40,7 +43,7 @@ public class EnterpriseService {
 		return enterpriseDao.findAll();
 	}
 
-	
+
 	/**
 	 * 条件查询+分页
 	 * @param whereMap
@@ -54,7 +57,7 @@ public class EnterpriseService {
 		return enterpriseDao.findAll(specification, pageRequest);
 	}
 
-	
+
 	/**
 	 * 条件查询
 	 * @param whereMap
@@ -79,7 +82,7 @@ public class EnterpriseService {
 	 * @param enterprise
 	 */
 	public void add(Enterprise enterprise) {
-		// enterprise.setId( idWorker.nextId()+"" ); 雪花分布式ID生成器
+		enterprise.setId( idWorker.nextId()+"" );
 		enterpriseDao.save(enterprise);
 	}
 
@@ -111,48 +114,47 @@ public class EnterpriseService {
 			@Override
 			public Predicate toPredicate(Root<Enterprise> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicateList = new ArrayList<Predicate>();
-                // ID
-                if (searchMap.get("id")!=null && !"".equals(searchMap.get("id"))) {
-                	predicateList.add(cb.like(root.get("id").as(String.class), "%"+(String)searchMap.get("id")+"%"));
-                }
-                // 企业名称
-                if (searchMap.get("name")!=null && !"".equals(searchMap.get("name"))) {
-                	predicateList.add(cb.like(root.get("name").as(String.class), "%"+(String)searchMap.get("name")+"%"));
-                }
-                // 企业简介
-                if (searchMap.get("summary")!=null && !"".equals(searchMap.get("summary"))) {
-                	predicateList.add(cb.like(root.get("summary").as(String.class), "%"+(String)searchMap.get("summary")+"%"));
-                }
-                // 企业地址
-                if (searchMap.get("address")!=null && !"".equals(searchMap.get("address"))) {
-                	predicateList.add(cb.like(root.get("address").as(String.class), "%"+(String)searchMap.get("address")+"%"));
-                }
-                // 标签列表
-                if (searchMap.get("labels")!=null && !"".equals(searchMap.get("labels"))) {
-                	predicateList.add(cb.like(root.get("labels").as(String.class), "%"+(String)searchMap.get("labels")+"%"));
-                }
-                // 坐标
-                if (searchMap.get("coordinate")!=null && !"".equals(searchMap.get("coordinate"))) {
-                	predicateList.add(cb.like(root.get("coordinate").as(String.class), "%"+(String)searchMap.get("coordinate")+"%"));
-                }
-                // 是否热门
-                if (searchMap.get("ishot")!=null && !"".equals(searchMap.get("ishot"))) {
-                	predicateList.add(cb.like(root.get("ishot").as(String.class), "%"+(String)searchMap.get("ishot")+"%"));
-                }
-                // LOGO
-                if (searchMap.get("logo")!=null && !"".equals(searchMap.get("logo"))) {
-                	predicateList.add(cb.like(root.get("logo").as(String.class), "%"+(String)searchMap.get("logo")+"%"));
-                }
-                // URL
-                if (searchMap.get("url")!=null && !"".equals(searchMap.get("url"))) {
-                	predicateList.add(cb.like(root.get("url").as(String.class), "%"+(String)searchMap.get("url")+"%"));
-                }
-				
+				// ID
+				if (searchMap.get("id")!=null && !"".equals(searchMap.get("id"))) {
+					predicateList.add(cb.like(root.get("id").as(String.class), "%"+(String)searchMap.get("id")+"%"));
+				}
+				// 企业名称
+				if (searchMap.get("name")!=null && !"".equals(searchMap.get("name"))) {
+					predicateList.add(cb.like(root.get("name").as(String.class), "%"+(String)searchMap.get("name")+"%"));
+				}
+				// 企业简介
+				if (searchMap.get("summary")!=null && !"".equals(searchMap.get("summary"))) {
+					predicateList.add(cb.like(root.get("summary").as(String.class), "%"+(String)searchMap.get("summary")+"%"));
+				}
+				// 企业地址
+				if (searchMap.get("address")!=null && !"".equals(searchMap.get("address"))) {
+					predicateList.add(cb.like(root.get("address").as(String.class), "%"+(String)searchMap.get("address")+"%"));
+				}
+				// 标签列表
+				if (searchMap.get("labels")!=null && !"".equals(searchMap.get("labels"))) {
+					predicateList.add(cb.like(root.get("labels").as(String.class), "%"+(String)searchMap.get("labels")+"%"));
+				}
+				// 坐标
+				if (searchMap.get("coordinate")!=null && !"".equals(searchMap.get("coordinate"))) {
+					predicateList.add(cb.like(root.get("coordinate").as(String.class), "%"+(String)searchMap.get("coordinate")+"%"));
+				}
+				// 是否热门
+				if (searchMap.get("ishot")!=null && !"".equals(searchMap.get("ishot"))) {
+					predicateList.add(cb.like(root.get("ishot").as(String.class), "%"+(String)searchMap.get("ishot")+"%"));
+				}
+				// LOGO
+				if (searchMap.get("logo")!=null && !"".equals(searchMap.get("logo"))) {
+					predicateList.add(cb.like(root.get("logo").as(String.class), "%"+(String)searchMap.get("logo")+"%"));
+				}
+				// URL
+				if (searchMap.get("url")!=null && !"".equals(searchMap.get("url"))) {
+					predicateList.add(cb.like(root.get("url").as(String.class), "%"+(String)searchMap.get("url")+"%"));
+				}
+
 				return cb.and( predicateList.toArray(new Predicate[predicateList.size()]));
 
 			}
 		};
 
 	}
-
 }
